@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<context:annotation-config/>
+
+
+
+    <import resource="mvc-dispatcher-servlet.xml"/>
+    <security:global-method-security secured-annotations="enabled" />
+
+   <!-- <security:http auto-config="true" authentication-manager-ref="authentification-manager"  use-expressions="true">
+
+        <security:intercept-url pattern="/login/**" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')" />
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+
+
+        <security:remember-me/>
+        &lt;!&ndash;<security:anonymous username="guest" granted-authority="IS_AUTHENTICATED_ANONYMOUSLY" />&ndash;&gt;
+        &lt;!&ndash; access denied page &ndash;&gt;
+        <security:access-denied-handler error-page="/403" />
+        <security:form-login
+
+                login-page="/login"
+                default-target-url="/"
+                authentication-failure-handler-ref="authenticationFailureHandler"
+                login-processing-url="/signin"
+                username-parameter="username"
+                password-parameter="password" />
+        <security:logout logout-success-url="/signin?logout" />
+                &lt;!&ndash; enable csrf protection &ndash;&gt;
+        <security:csrf />
+    </security:http>-->
+<!--
+
+    <security:authentication-manager id="authentification-manager">
+        <security:authentication-provider user-service-ref="myUserDetailsService" >
+            <security:password-encoder hash="md5" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+
+-->
+    <bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.security.authentication.BadCredentialsException">/login/badCredentials</prop>
+                <prop key="org.springframework.security.authentication.CredentialsExpiredException">/login/credentialsExpired</prop>
+                <prop key="org.springframework.security.authentication.LockedException">/login/accountLocked</prop>
+                <prop key="org.springframework.security.authentication.DisabledException">/login/accountDisabled</prop>
+            </props>
+        </property>
+    </bean>
+<!--
+<bean id="myUserDetailsService" class="su.arth.Service.MyUserDetailsService"></bean>
+-->
+</beans>
