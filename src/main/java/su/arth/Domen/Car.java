@@ -15,7 +15,7 @@ public class Car {
 
     }
 
-    public Car(String name, String url, String status, double lon, double lat, boolean onStarting, boolean onProtection, Set<User> users,long vincode) {
+    public Car(String name, String url, String status, double lon, double lat, boolean onStarting, boolean onProtection, Set<User> users,String vin) {
         this.name = name;
         this.url = url;
         this.status = status;
@@ -24,13 +24,13 @@ public class Car {
         this.onStarting = onStarting;
         this.onProtection = onProtection;
         this.users = users;
-        this.vincode = vincode;
+        this.vin = vin;
     }
 
-    public Car(String name, String url, long vincode, Set<User> users) {
+    public Car(String name, String url, String vin, Set<User> users) {
         this.name = name;
         this.url = url;
-        this.vincode = vincode;
+        this.vin = vin;
         this.users = users;
     }
 
@@ -39,13 +39,13 @@ public class Car {
     @GeneratedValue
     private Integer id;
 
-
+    @Column(name = "vin",nullable = false)
+    private String vin;
     @Column(name = "name")
    private String name;
-    @Column(name="url")
-    private String url;
     @Column(name="status")
     private String status;
+
     @Column(name = "lon")
     private  double lon;
     @Column(name = "lat")
@@ -54,12 +54,13 @@ public class Car {
     private boolean onStarting;
     @Column(name = "onProtection")
     private boolean onProtection;
-@Column(name = "vin",nullable = false)
-private long vincode;
+    @Column(name="url")
+    private String url;
 
 
 
-    @ManyToMany(cascade=CascadeType.ALL,mappedBy = "cars")
+
+    @ManyToMany(cascade=CascadeType.ALL,mappedBy = "cars",fetch = FetchType.LAZY)
 
     private Set<User> users = new HashSet<User>();
 
@@ -77,9 +78,17 @@ private long vincode;
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
+
         this.id = id;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
     }
 
     public String getName() {
@@ -88,14 +97,6 @@ private long vincode;
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getStatus() {
@@ -122,23 +123,6 @@ private long vincode;
         this.lat = lat;
     }
 
-    public boolean isOnStrting() {
-        return onStarting;
-    }
-
-    public void setOnStrting(boolean onStrting) {
-        this.onStarting = onStrting;
-    }
-
-    public boolean isOnprotection() {
-        return onProtection;
-    }
-
-    public void setOnprotection(boolean onprotection) {
-        this.onProtection = onprotection;
-    }
-
-
     public boolean isOnStarting() {
         return onStarting;
     }
@@ -155,11 +139,11 @@ private long vincode;
         this.onProtection = onProtection;
     }
 
-    public long getVincode() {
-        return vincode;
+    public String getUrl() {
+        return url;
     }
 
-    public void setVincode(long vincode) {
-        this.vincode = vincode;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

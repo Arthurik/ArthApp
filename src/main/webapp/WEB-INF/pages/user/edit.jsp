@@ -22,6 +22,8 @@
   </style>
   <%--<link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   --%>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
   <style type="text/css">
 
 input[readonly]{
@@ -75,11 +77,11 @@ input[readonly]{
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Система защиты транспорта</a>
+      <a class="navbar-brand" href="/">Система защиты транспорта</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="#">Главная</a></li>
+        <li><a href="/">Главная</a></li>
         <li class="dropdown active">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Сервисы <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -198,35 +200,25 @@ input[readonly]{
                 <tr id="carVin_row">
                   <td></td>
                   <td colspan="3">VIN автомобиля</td>
-                  <td colspan="2"></td>
-                  <td colspan="3"><sf:input path="vincode" id="vincode" name="vincode" /> </td>
-                  <td colspan="2"><a href="" <sf:button id="btn_vincode" /> </td>
-                  <a href="http://www.google.com/">
-                    <button>Visit Google</button>
-                  </a>
+                  <td colspan="1"></td>
+                  <td colspan="3"><sf:input path="vin" id="vin" name="vin" readonly="false" /> </td>
+                  <td colspan="3"><input type="button" id="btn_vin" name="btn_vin" value="Найти" /> </td>
+
 </tr>
                      <tr>
                        <td></td>
                        <td colspan="3"> Название </td>
-                       <td><input type="text" id="carName" value="АВТО" readonly="true" /> </td>
-                       <td colspan="2"></td>
+                       <td>  </td>
+                       <td colspan="2"><sf:input path="name" id="name" name="name" readonly="true"/> </td>
 
                      </tr>
-                <tr>
-                  <td></td>
-                  <td colspan="3"> Модель: </td>
-
-                  <td><input type="text" id="ca1" value="МОДЕЛЬ" readonly="true" /> </td>
-                  <td colspan="2"></td>
-
-                </tr>
 
 
                 <tr id="carUrl_row">
                   <td></td>
                   <td colspan="3"> Адрес в сети: </td>
-                  <td colspan="3"><input type="text" id="carUrl" value="25.15.59.227" readonly="true" /> </td>
-                  <td colspan="2"></td>
+                  <td colspan="3"> </td>
+                  <td colspan="2"><sf:input path="url" id="url" name="url" readonly="true" /></td>
                 </tr>
 
 
@@ -262,7 +254,7 @@ input[readonly]{
     </sf:form>
   </div>
 
-
+<%--<c:url value="/cars/find/" var="carsFind"/>--%>
 
 <%--
 <div class="container">
@@ -277,10 +269,32 @@ input[readonly]{
   </form>
 
 </div>--%>
+<script type="text/javascript">
+  $(document).ready(function () {
+
+
+  $("#btn_vin").click(function () {
+
+   var car = $.ajax({
+      type: 'GET',
+      url:'/cars/find/'+$("#vin").val(),
+      dataType: 'application/json',
+      async: false,
+      success: function (data) {
+        $("name").val(data.name);
+        $("url").val(data.url);
+              }
+   });
 
 
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  });
+
+  });
+</script>
+
+
+
 <script type="text/javascript" >
 
   <%@ include file="/resources/bootstrap/js/bootstrap.min.js" %>

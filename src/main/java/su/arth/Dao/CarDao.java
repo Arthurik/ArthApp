@@ -32,8 +32,8 @@ public class CarDao {
 
 
     @SuppressWarnings("unchecked")
-    public Car findByVin(String vincode){
-        return (Car) sessionFactory.getCurrentSession().createQuery("from Car where vincode=: vincode").setParameter("vincode",vincode).list().get(0);
+    public Car findByVin(String vin){
+        return (Car) sessionFactory.getCurrentSession().createQuery("from Car where vin = :vin").setParameter("vin",vin).list().get(0);
     }
 
 

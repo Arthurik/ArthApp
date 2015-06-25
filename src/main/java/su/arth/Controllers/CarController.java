@@ -1,10 +1,11 @@
 package su.arth.Controllers;
 
-import org.codehaus.jackson.map.util.JSONPObject;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import su.arth.Domen.User;
 import su.arth.Service.CarService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,12 +51,21 @@ public class CarController {
     }
 
 
-    @RequestMapping("/findByVin")
+    @RequestMapping("/find/{vin}")
     @ResponseBody
-    public  findByVin(){
+    public String findByVin(@PathVariable String vin){
+        Car car = carService.findByVin(vin);
+        ObjectMapper mapper = new ObjectMapper();
+        String req = "";
+        try {
+            req =  mapper.writeValueAsString(car);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return "";
+        return req;
     }
+
 
 
 }

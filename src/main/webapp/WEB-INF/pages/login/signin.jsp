@@ -69,11 +69,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Система защиты транспорта</a>
+      <a class="navbar-brand" href="/">Система защиты транспорта</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Главная</a></li>
+        <li class="active"><a href="/">Главная</a></li>
         <li><a href="#about">О системе</a></li>
         <li><a href="#contact">Контакты</a></li>
       </ul>

@@ -84,7 +84,7 @@ private String login;
 @Column(name = "phone",nullable = false)
 private String phone;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name="common",
             joinColumns = {@JoinColumn(name="idUser")},
             inverseJoinColumns = {@JoinColumn(name="idCar")}

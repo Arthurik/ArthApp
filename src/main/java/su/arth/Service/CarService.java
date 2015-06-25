@@ -30,8 +30,8 @@ public class CarService  {
 
 
     @Transactional
-    public Car findByVin(String vincode){
-        return carDao.findByVin(vincode);
+    public Car findByVin(String vin){
+        return carDao.findByVin(vin);
     }
 
 }

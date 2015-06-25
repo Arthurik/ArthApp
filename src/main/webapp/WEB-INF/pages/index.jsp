@@ -77,11 +77,11 @@ font-size: 12pt;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Система защиты транспорта</a>
+      <a class="navbar-brand" href="/">Система защиты транспорта</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="#">Главная</a></li>
+        <li><a href="/">Главная</a></li>
           <li class="dropdown active">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Сервисы <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -105,6 +105,11 @@ font-size: 12pt;
             <li> <a href="/logout">Выйти</a> </li>
           </c:if>
 
+        <c:if test="${pageContext.request.userPrincipal.name == null}">
+        <li>
+          <a href="/login" >Войти</a>
+        </li>
+        </c:if>
 
       </ul>
     </div>
